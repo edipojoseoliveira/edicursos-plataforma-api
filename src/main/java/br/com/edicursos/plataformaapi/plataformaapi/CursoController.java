@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -25,7 +24,7 @@ public class CursoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Curso>> findById(@PathVariable UUID id) {
+    public ResponseEntity<Curso> findById(@PathVariable UUID id) {
         var curso = this.service.findById(id);
         return ResponseEntity.ok(curso);
     }

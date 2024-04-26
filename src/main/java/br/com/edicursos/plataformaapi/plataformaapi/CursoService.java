@@ -1,5 +1,6 @@
 package br.com.edicursos.plataformaapi.plataformaapi;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -19,8 +20,8 @@ public class CursoService {
         return this.repo.findAll();
     }
 
-    public Optional<Curso> findById(UUID id) {
-        return this.repo.findById(id);
+    public Curso findById(UUID id) {
+        return this.repo.findById(id).orElseThrow(() -> new ControllerNotFoundException("Curso não encontrado"));
     }
 
     public Curso save(Curso curso) {
@@ -29,13 +30,17 @@ public class CursoService {
     }
 
     public Curso update(UUID id, Curso curso) {
-        var buscaCurso = this.repo.getOne(id);
-        buscaCurso.setNome(curso.getNome());
-        buscaCurso.setDescricao(curso.getDescricao());
-        buscaCurso.setUrlDaImagem(curso.getUrlDaImagem());
-        buscaCurso = this.repo.save(buscaCurso);
+        try {
+            var buscaCurso = this.repo.getOne(id);
+            buscaCurso.setNome(curso.getNome());
+            buscaCurso.setDescricao(curso.getDescricao());
+            buscaCurso.setUrlDaImagem(curso.getUrlDaImagem());
+            buscaCurso = this.repo.save(buscaCurso);
 
-        return buscaCurso;
+            return buscaCurso;
+        } catch (EntityNotFoundException e) {
+            throw new ControllerNotFoundException("Curso não encontrado");
+        }
     }
 
     public void delete(UUID id) {
