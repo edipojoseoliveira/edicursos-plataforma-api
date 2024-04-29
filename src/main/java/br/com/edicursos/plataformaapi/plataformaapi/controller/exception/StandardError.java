@@ -1,4 +1,4 @@
-package br.com.edicursos.plataformaapi.plataformaapi;
+package br.com.edicursos.plataformaapi.plataformaapi.controller.exception;
 
 import java.time.Instant;
 

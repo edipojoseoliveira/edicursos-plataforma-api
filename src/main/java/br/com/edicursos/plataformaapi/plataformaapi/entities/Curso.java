@@ -1,4 +1,4 @@
-package br.com.edicursos.plataformaapi.plataformaapi;
+package br.com.edicursos.plataformaapi.plataformaapi.entities;
 
 import jakarta.persistence.*;
 
@@ -18,14 +18,14 @@ public class Curso {
 
     public Curso() {}
 
-    public Curso(String urlDaImagem, String descricao, String nome, UUID id) {
-        this.urlDaImagem = urlDaImagem;
-        this.descricao = descricao;
-        this.nome = nome;
+    public Curso(UUID id, String nome, String descricao, String urlDaImagem) {
         this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.urlDaImagem = urlDaImagem;
     }
 
-    public UUID getId() {
+	public UUID getId() {
         return id;
     }
 
